@@ -10,9 +10,11 @@ config_emulated = []
 [dependencies]
 serde_bytes = "0.11"
 serde_cbor = "0.11"
-aws-nitro-enclaves-nsm-api = { path = "../" }
-nsm-lib = { path = "../nsm-lib" }
 nix = "0.26"
 threadpool = "1.7"
 signal-hook = "0.3"
 vsock = "0.3"
+hex = "0.4"
+aws-nitro-enclaves-nsm-api = { path = "../" }
+nsm-lib = { path = "../nsm-lib" }
+aws-nitro-enclaves-cose = { git = "https://github.com/andrcmdr/aws-nitro-enclaves-cose.git", branch = "main", version = "0.5.2", features = ["key_openssl_pkey"] }

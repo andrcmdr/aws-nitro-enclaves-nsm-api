@@ -13,6 +13,7 @@ repository = "https://github.com/aws/aws-nitro-enclaves-nsm-api"
 [workspace]
 members = [ ".", "nsm-lib", "nsm-test" ]
 default-members = [ "." ]
+# exclude = [ ]
 
 [profile.release]
 lto = true

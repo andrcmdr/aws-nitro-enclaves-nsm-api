@@ -45,7 +45,7 @@ impl From<CborError> for Error {
 
 /// List of error codes that the NSM module can return as part of a Response
 #[repr(C)]
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub enum ErrorCode {
     /// No errors
     Success,
@@ -77,7 +77,7 @@ pub enum ErrorCode {
 }
 
 /// Operations that a NitroSecureModule should implement. Assumes 64K registers will be enough for everyone.
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 #[non_exhaustive]
 pub enum Request {
     /// Read data from PlatformConfigurationRegister at `index`
@@ -113,7 +113,7 @@ pub enum Request {
     /// if the version is not supported.
     DescribeNSM,
 
-    /// Requests the NSM to create an AttestationDoc and sign it with it's private key to ensure
+    /// Requests the NSM to create an AttestationDoc and sign it with its private key to ensure
     /// authenticity.
     Attestation {
         /// Includes additional user data in the AttestationDoc.
@@ -131,7 +131,7 @@ pub enum Request {
 }
 
 /// Responses received from a NitroSecureModule as a result of a Request
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 #[non_exhaustive]
 pub enum Response {
     /// returns the current PlatformConfigurationRegister state
@@ -189,7 +189,7 @@ pub enum Response {
         random: Vec<u8>,
     },
 
-    /// An error has occured, and the NitroSecureModule could not successfully complete the operation
+    /// An error has occurred, and the NitroSecureModule could not successfully complete the operation
     Error(ErrorCode),
 }
 
@@ -213,7 +213,7 @@ pub struct AttestationDoc {
     pub module_id: String,
 
     /// The digest function used for calculating the register values
-    /// Can be: "SHA256" | "SHA512"
+    /// Can be: "SHA256" | "SHA384" | "SHA512"
     pub digest: Digest,
 
     /// UTC time when document was created expressed as milliseconds since Unix Epoch
@@ -222,7 +222,7 @@ pub struct AttestationDoc {
     /// Map of all locked PCRs at the moment the attestation document was generated
     pub pcrs: BTreeMap<usize, ByteBuf>,
 
-    /// The infrastucture certificate used to sign the document, DER encoded
+    /// The infrastructure certificate used to sign the document, DER encoded
     pub certificate: ByteBuf,
     /// Issuing CA bundle for infrastructure certificate
     pub cabundle: Vec<ByteBuf>,

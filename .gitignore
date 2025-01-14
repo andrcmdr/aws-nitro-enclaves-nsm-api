@@ -1,2 +1,19 @@
-target
-Cargo.lock
+# Rust artifacts
+target/
+*/target/
+
+# Visual Studio Code
+.vscode/
+*/.vscode/
+.run/
+
+# JetBrains IDEs
+.idea/
+*/.idea/
+.run/
+
+# Editor backup files
+*~
+
+# macOS
+.DS_Store
